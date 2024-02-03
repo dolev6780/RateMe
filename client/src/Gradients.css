@@ -1,0 +1,10 @@
+.logo-gradient{
+    background: #CF8E2E;
+    background: -webkit-linear-gradient(to right, #CF8E2E 44%, #557ECF 100%);
+    background: -moz-linear-gradient(to right, #CF8E2E 44%, #557ECF 100%);
+    background: linear-gradient(to right, #CF8E2E 44%, #557ECF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    text-shadow: 2px 2px 20px #403c36;
+}

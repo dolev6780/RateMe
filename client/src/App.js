@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import Home from './pages/Home';
+import Footer from './components/Footer';
+import { useUserContext } from "./hooks/useUserContext";
+
+const Wrapper = ({ children }) => {
+  const { user } = useUserContext();
+
+  return user ? (
+    children
+  ) : (
+    <Navigate to="/signin" replace={true} />
+  );
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Wrapper>
+                <Home />
+              </Wrapper>
+            }
+          />
+          <Route
+            path="/signin"
+            element={<SignIn />}
+          />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
