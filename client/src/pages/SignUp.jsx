@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignButton from '../components/SignButton';
 import SignInput from '../components/SignInput';
 import '../Fonts.css';
 import { useNavigate } from 'react-router-dom';
 import { useSignup } from '../hooks/useSignup';
+import { useUserContext } from '../hooks/useUserContext';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -12,8 +13,13 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
+  const {user} = useUserContext();
   const { signup, error, isLoading } = useSignup();
-
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const sendDetails = async () => {
     // Check if any of the required fields is empty
     if (!fname || !lname || !email || !password || !cPassword) {

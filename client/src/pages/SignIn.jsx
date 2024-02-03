@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SignInput from '../components/SignInput';
 import {useNavigate} from 'react-router-dom';
 import '../Fonts.css';
 import SignButton from '../components/SignButton';
 import {useSignin} from '../hooks/useSignin';
+import {useUserContext} from '../hooks/useUserContext'
 export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const {user} = useUserContext();
   const { signin, isLoading, error } = useSignin();
-
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const checkDetails = () => {
           // Check if any of the required fields is empty
     if (!email || !password) {

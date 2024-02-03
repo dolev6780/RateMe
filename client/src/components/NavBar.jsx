@@ -5,26 +5,22 @@ import SignButton from './SignButton';
 import {useScreensize} from '../hooks/useScreenSize';
 import {useUserContext} from '../hooks/useUserContext';
 import { useSignout } from "../hooks/useSignout";
+import CircleMenu from '../components/CircleMenu';
 export default function NavBar() {
   const navigate = useNavigate();
   const [isSigned, setIsSigned] = useState(false);
   const {screenSize} = useScreensize();
   const {user} = useUserContext();
-  const { signout } = useSignout();
-  const displayName = user ? user.user.firstName + " " + user.user.lastName: "";
+ 
   useEffect(()=>{
     const checkIfSigned = () => {
       const signed = user ? setIsSigned(true) : setIsSigned(false);
     }
     return checkIfSigned();
   },[user])
-  const signOut = () => {
-      signout();
-      navigate("/");
-      window.location.reload();
-  }
+
   return (
-    <div className="flex justify-between shadow-md p-4">
+    <div className="flex justify-between items-center shadow-md p-4">
       <div>
         <h1
           onClick={() => {
@@ -34,53 +30,23 @@ export default function NavBar() {
         >
           RateMe
         </h1>
-        <div>
-          <h1 className="text-black">{displayName}</h1>
-        </div>
       </div>
-      {screenSize.dynamicWidth > 700 ? (
-        <div className="flex gap-4">
-          {!isSigned ? (
-            <div className="flex gap-4">
-              <SignButton
-                onClickFunc={() => {
-                  navigate("/signin");
-                }}
-                text={"Sign In"}
-              />
-              <SignButton
-                onClickFunc={() => {
-                  navigate("/signup");
-                }}
-                text={"Sign Up"}
-              />
-            </div>
-          ) : (
-            <div>
-              <SignButton onClickFunc={signOut} text={"Sign Out"} />
-            </div>
-          )}
-        </div>
-      ) : (
-        <div>
-          <button>sad</button>
-          <div className={`hidden`}>
+      <div className="flex gap-4">
+        {!isSigned ? (
+          <div className="flex gap-4">
             <SignButton
               onClickFunc={() => {
                 navigate("/signin");
               }}
               text={"Sign In"}
             />
-            <SignButton
-              onClickFunc={() => {
-                navigate("/signup");
-              }}
-              text={"Sign Up"}
-            />
           </div>
-          {isSigned ? <SignButton text={"Sign Out"} /> : ""}
-        </div>
-      )}
+        ) : (
+          <div>
+            <CircleMenu />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
