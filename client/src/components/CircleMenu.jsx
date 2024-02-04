@@ -4,6 +4,7 @@ import SignButton from './SignButton';
 import {useNavigate} from 'react-router-dom';
 import { useSignout } from "../hooks/useSignout";
 import { motion } from "framer-motion";
+import CircleAvatar from './CircleAvatar';
 
 const variants = {
   open: {
@@ -34,27 +35,23 @@ export default function CircleMenu() {
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="bg-gray-400 py-2 px-4 rounded-full text-white font-bold"
         >
-          {circleMenuLetter}
+          <CircleAvatar content={circleMenuLetter}/>
         </button>
       </div>
       <motion.div
         animate={isOpen ? "open" : "closed"}
         variants={variants}
-        className={`absolute w-fit right-2 shadow-md bg-gray-300 p-2 pl-10 rounded mt-2 grid gap-4`}
+        className={`absolute w-fit right-2 shadow-md bg-gray-300 p-2 px-6 rounded mt-2 grid gap-4`}
       >
         <div
           onClick={() => {
             navigate(`profile/${user.user._id}`);
             setIsOpen(!isOpen);
           }}
-          dir="rtl"
-          className="relative w-full grid justify-center"
+          className="relative w-full grid  justify-center"
         >
-          <div className="bg-gray-400 py-4 px-6 rounded-full w-fit text-white font-bold mr-2">
-            {circleMenuLetter}
-          </div>
+         <CircleAvatar content={circleMenuLetter} styleAddons={"w-[4rem] h-[4rem] ml-4"}/>
           <h1 className="font-bold">{displayName}</h1>
         </div>
         <hr className="" />
