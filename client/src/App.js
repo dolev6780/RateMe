@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import { useUserContext } from './hooks/useUserContext';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 function App() {
   const { user } = useUserContext();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path={`/profile/${user?.user._id}`} element={<Profile />} />
+          <Route path={`/editprofile/${user?.user._id}`} element={<EditProfile />} />
         </Routes>
         <Footer />
       </Router>
