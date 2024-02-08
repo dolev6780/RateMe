@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function InputWithIcon({icon,type,setState,isrequired,placeholder}) {
+  const [inputText, setInputText] = useState("")
   return (
-    <div className="relative">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        {icon}
+    <div className="relative flex justify-between items-center">
+      <div className="absolute inset-y-0 right-2 top-2 flex items-center">
+        <button
+          onClick={() => {
+            setState(inputText);
+          }}
+        >
+          {icon}
+        </button>
       </div>
       <input
         type={type}
-        className="w-full p-4 pl-12 text-sm rounded-lg bg-white bg-opacity-40 placeholder:text-white"
+        className="p-2 border-2 border-blue-900 mt-2 text-sm rounded-md w-full"
         placeholder={placeholder}
         required={isrequired}
         onChange={(e) => {
-          setState(e.target.value);
+          setInputText(e.target.value);
         }}
       />
     </div>

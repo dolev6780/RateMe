@@ -23,8 +23,14 @@ function App() {
           />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path={`/profile/${user?.user._id}`} element={<Profile />} />
-          <Route path={`/editprofile/${user?.user._id}`} element={<EditProfile />} />
+          <Route
+            path={`/profile/${user && user.user && user.user._id}`}
+            element={<Profile />}
+          />
+          <Route
+            path={`/editprofile/${user && user.user && user.user._id}`}
+            element={<EditProfile />}
+          />
         </Routes>
         <Footer />
       </Router>

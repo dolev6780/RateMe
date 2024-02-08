@@ -17,8 +17,11 @@ export const useSignin = () => {
       })
       .then((res) => {
         setIsLoading(false);
+        console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("profile", JSON.stringify(res.data.profile));
         dispatch({ type: "SIGNIN", payload: res.data });
+        dispatch({ type: "SET_PROFILE", payload: res.data.profile });
         navigate("/");
       })
       .catch((err) => {

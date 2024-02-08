@@ -10,6 +10,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
+  const [uname, setUname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
@@ -36,7 +37,7 @@ export default function SignUp() {
     }
 
     // All checks passed, proceed with the signup
-    signup(fname, lname, email, password);
+    signup(fname, lname, uname, email, password);
   };
 
   return (
@@ -51,6 +52,7 @@ export default function SignUp() {
         <div className="mt-4">
           <SignInput text={'First Name'} setState={setFname} />
           <SignInput text={'Last Name'} setState={setLname} />
+          <SignInput text={'User Name'} setState={setUname} />
           <SignInput text={'Email Address'} setState={setEmail} />
           <SignInput text={'Password'} setState={setPassword} />
           <SignInput text={'Confirm Password'} setState={setCPassword} />

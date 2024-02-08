@@ -42,7 +42,7 @@ export default function NavBar() {
             />
           </div>
         ) : (
-          <div>
+          <div className='z-10'>
             <CircleMenu />
           </div>
         )}

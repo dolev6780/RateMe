@@ -13,13 +13,15 @@ const variants = {
   },
   closed: {
     opacity: 0,
+    display:"none"
     //transition: { duration: 0.5 },
   },
 };
 export default function CircleMenu() {
-  const {user} = useUserContext();
+  const { user } = useUserContext();
+  const {profile} = useUserContext();
   const [isOpen, setIsOpen] = useState(false);
-  const displayName = user ? user.user.firstName + " " + user.user.lastName: "";
+  const displayName = user?.user?.userName || "";
   const circleMenuLetter = displayName.charAt(0).toUpperCase();
   const navigate = useNavigate();
   const { signout } = useSignout();
@@ -36,7 +38,7 @@ export default function CircleMenu() {
             setIsOpen(!isOpen);
           }}
         >
-          <CircleAvatar content={circleMenuLetter}/>
+          <CircleAvatar content={circleMenuLetter} img={profile?.profilePic} />
         </button>
       </div>
       <motion.div
@@ -46,13 +48,17 @@ export default function CircleMenu() {
       >
         <div
           onClick={() => {
-            navigate(`profile/${user.user._id}`);
+            navigate(`profile/${user?.user._id}`);
             setIsOpen(!isOpen);
           }}
           className="relative w-full grid  justify-center"
         >
-         <CircleAvatar content={circleMenuLetter} styleAddons={"w-[4rem] h-[4rem] ml-4"}/>
-          <h1 className="font-bold">{displayName}</h1>
+          <CircleAvatar
+            content={circleMenuLetter}
+            img={profile?.profilePic}
+            styleAddons={"w-[4rem] h-[4rem]"}
+          />
+          <h1 className="font-bold text-center">{displayName}</h1>
         </div>
         <hr className="" />
         <SignButton onClickFunc={signOut} text={"Sign Out"} styleAddons={""} />
