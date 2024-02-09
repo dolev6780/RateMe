@@ -38,13 +38,13 @@ export default function CircleMenu() {
             setIsOpen(!isOpen);
           }}
         >
-          <CircleAvatar content={circleMenuLetter} img={profile?.profilePic} />
+          <CircleAvatar content={circleMenuLetter} img={profile?.profilePic} styleAddons={"border border-blue-900"} />
         </button>
       </div>
       <motion.div
         animate={isOpen ? "open" : "closed"}
         variants={variants}
-        className={`absolute w-fit right-2 shadow-md bg-gray-300 p-2 px-6 rounded mt-2 grid gap-4`}
+        className={`absolute w-fit right-2 shadow-md bg-white p-2 px-6 rounded mt-2 grid gap-4`}
       >
         <div
           onClick={() => {
@@ -56,7 +56,7 @@ export default function CircleMenu() {
           <CircleAvatar
             content={circleMenuLetter}
             img={profile?.profilePic}
-            styleAddons={"w-[4rem] h-[4rem]"}
+            styleAddons={"w-[4rem] h-[4rem] border-2 border-blue-900"}
           />
           <h1 className="font-bold text-center">{displayName}</h1>
         </div>

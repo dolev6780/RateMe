@@ -8,6 +8,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import InputWithIcon from '../components/InputWithIcon';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useUpdateProfile} from '../hooks/useUpdateProfile';
+import Loader from "../components/Loader";
 export default function EditProfile() {
     const {user} = useUserContext();
     const { profile } = useUserContext();
@@ -22,21 +23,55 @@ export default function EditProfile() {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onloadend = () => {
-          setProfilePic(reader.result);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 500; // Maximum width for the resized image
+            const MAX_HEIGHT = 500; // Maximum height for the resized image
+            let width = img.width;
+            let height = img.height;
+    
+            // Calculate new dimensions while maintaining aspect ratio
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+    
+            // Set canvas dimensions and draw the image
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+    
+            // Convert canvas content to base64 data URL
+            const dataUrl = canvas.toDataURL('image/jpeg'); // Change format if needed
+    
+            // Set the resized image as profile picture
+            setProfilePic(dataUrl);
+          };
+          img.src = event.target.result;
         };
         reader.readAsDataURL(file);
       }
     };
+    
     const update = () => {
       updateProfile(
-        profilePic,
+        profilePic ? profilePic : profile.profilePic,
         user?.user.firstName,
         user?.user.lastName,
-        userName,
+        userName ? userName : profile.userName,
         user.user.email,
-        gender,
-        dateOfBirth
+        gender ? gender : profile.gender,
+        dateOfBirth ? dateOfBirth : profile.dateOfBirth
       );
 }
   return (
@@ -169,12 +204,11 @@ export default function EditProfile() {
             setDateOfBirth(e.target.value);
           }}
         />
-
         <button
           onClick={update}
           className="border-2 border-blue-900 rounded-md w-fit m-auto py-1 px-4"
         >
-          Update profile
+          {isLoading ? <Loader/> : "Update profile"}
         </button>
       </div>
     </div>
