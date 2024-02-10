@@ -5,6 +5,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const profileRoute = require('./routes/profile');
+const postRoute = require('./routes/post');
 
 /////////////config/////////////////
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 ////////////routes//////////////////////////////
 app.use('/api/user', authRoutes);
 app.use('/api/profile', profileRoute);
+app.use('/api/post', postRoute);
 
 //////////////mongoose setup////////////////////
 const PORT = 3001 || 5000;

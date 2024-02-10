@@ -68,10 +68,10 @@ export default function EditProfile() {
         profilePic ? profilePic : profile.profilePic,
         user?.user.firstName,
         user?.user.lastName,
-        userName ? userName : profile.userName,
-        user.user.email,
-        gender ? gender : profile.gender,
-        dateOfBirth ? dateOfBirth : profile.dateOfBirth
+        userName ? userName : user?.user.userName,
+        user?.user.email,
+        gender ? gender : profile?.gender,
+        dateOfBirth ? dateOfBirth : profile?.dateOfBirth
       );
 }
   return (
@@ -91,7 +91,7 @@ export default function EditProfile() {
           <label htmlFor="files">
             <CircleAvatar
               content={user?.user.userName}
-              img={profilePic ? profilePic :profile.profilePic}
+              img={profilePic ? profilePic :profile?.profilePic}
               styleAddons={"w-28 h-28"}
             />
             <input
@@ -112,18 +112,18 @@ export default function EditProfile() {
           disabled
           className="py-1 border-2 w-full border-blue-900 rounded-md px-2"
           type="text"
-          defaultValue={profile?.firstName}
+          defaultValue={user?.user.firstName}
         />
         <input
           disabled
           className="py-1 border-2 w-full border-blue-900 rounded-md px-2"
           type="text"
-          defaultValue={profile?.lastName}
+          defaultValue={user?.user.lastName}
         />
         <input
           className="py-1 border-2 w-full border-blue-900 rounded-md px-2"
           type="text"
-          defaultValue={profile?.userName}
+          defaultValue={user?.user.userName}
           onChange={(e) => {
             setUserName(e.target.value);
           }}

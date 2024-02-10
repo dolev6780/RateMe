@@ -12,7 +12,6 @@ const updateProfile = async (req, res) => {
     }
 
     const { profilePic, firstName, lastName, userName, email, gender, dateOfBirth } = req.body;
-
     // Find user by email
     const user = await User.findOne({ email });
     const profile = await Profile.findOne({ email });

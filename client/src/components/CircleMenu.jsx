@@ -9,12 +9,12 @@ import CircleAvatar from './CircleAvatar';
 const variants = {
   open: {
     opacity: 1,
-    //transition: { duration: 0.5 },
+    transition: { duration: 0.5 },
   },
   closed: {
     opacity: 0,
-    display:"none"
-    //transition: { duration: 0.5 },
+    display: "none",
+    transition: { duration: 0.5 },
   },
 };
 export default function CircleMenu() {

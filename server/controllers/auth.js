@@ -21,10 +21,11 @@ const signup = async (req, res) => {
       lastName,
       userName,
       email,
+      gender: null,
+      dateOfBirth: null,
     });
     
     const savedUser = await newUser.save();
-    console.log("in");
     const savedProfile = await newProfile.save();
     res.status(201).json(savedUser);
   } catch (err) {
@@ -39,7 +40,6 @@ const signin = async (req, res) => {
     const { email, password} = req.body;
     const user = await User.findOne({email: email});
     const profile = await Profile.findOne({email: email});
-    console.log(profile);
     if(!user) return res.status(400).json({msg: "User does not exist"});
     const isMatch = await bcrypt.compare(password, user.password);
     if(!isMatch) return res.status(400).json({msg: "unvalid credentials"});

@@ -10,7 +10,7 @@ export default function MobileBottomBar({setIsOpen}) {
       setIsOpen(true)
     }
   return (
-    <div className="w-full p-2 shadow-lg shadow-black flex justify-between px-2">
+    <div className="w-full p-2 shadow-lg shadow-black flex justify-between px-2 bg-white">
       <button onClick={()=>{navigate('/randomrates')}} className="w-full mx-2 px-2 text-2xl">
         <StarBorderIcon fontSize="inherit" />
       </button>

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-
+import {useUserContext} from '../hooks/useUserContext'
+import {useCreatePost} from '../hooks/useCreatePost';
 export default function AddPhotoPopUp({ setIsOpen }) {
   const [postPhoto, setPostPhoto] = useState(null);
-
+  const [content, setContent] = useState();
+  const {user} = useUserContext();
+  const { createPost, isLoading, error } = useCreatePost();
   const closeAddPhoto = () => {
     setIsOpen(false);
   };
@@ -52,11 +55,23 @@ export default function AddPhotoPopUp({ setIsOpen }) {
     }
   };
 
+  const createNewPost = () => {
+      if(postPhoto !== null){
+        createPost(postPhoto, content, user.user.userName);
+      }
+      setIsOpen(false);
+  }
   return (
-    <div className="bottom-0 w-full bg-white p-4" style={{ height: '63vh', overflowY: 'auto' }}>
+    <div
+      className="bottom-0 w-full bg-white p-4"
+      style={{ height: "63vh", overflowY: "auto" }}
+    >
       <div className="flex items-center justify-between py-2 border-b border-gray-200">
         <h1 className="text-lg font-bold">Create New Rate Post</h1>
-        <button onClick={closeAddPhoto} className="text-gray-500 hover:text-gray-700">
+        <button
+          onClick={closeAddPhoto}
+          className="text-gray-500 hover:text-gray-700"
+        >
           <CloseIcon />
         </button>
       </div>
@@ -81,10 +96,22 @@ export default function AddPhotoPopUp({ setIsOpen }) {
           </div>
         )}
         <div className="mt-2 flex justify-end">
-          <input className='border rounded w-full placeholder:text-sm py-2 ' type="text" placeholder='Tell everyone about the picture' />
+          <input
+            className="border rounded w-full placeholder:text-sm py-2 "
+            type="text"
+            placeholder="Tell everyone about the picture"
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
         </div>
-        <div className='mt-2 flex justify-end'>
-          <button className='bg-blue-900 p-2 rounded-md text-white font-bold'>Upload</button>
+        <div className="mt-2 flex justify-end">
+          <button
+            onClick={createNewPost}
+            className="bg-blue-900 p-2 rounded-md text-white font-bold"
+          >
+            Upload
+          </button>
         </div>
       </div>
     </div>
